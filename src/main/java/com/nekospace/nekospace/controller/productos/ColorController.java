@@ -18,7 +18,7 @@ import com.nekospace.nekospace.model.productos.Color;
 import com.nekospace.nekospace.service.productos.ColorService;
 
 @RestController
-@RequestMapping("/api/colores")
+@RequestMapping("/api/color")
 public class ColorController {
 
     @Autowired

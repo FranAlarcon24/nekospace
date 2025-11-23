@@ -152,7 +152,7 @@ public class ProductoService {
     }
 
     public List<Producto> findByImagenId(Integer imagenId) {
-        return productoRepository.findByImagenId(imagenId);
+        return productoRepository.findByImagenesId(imagenId);
     }
 
     public List<Producto> findByColoresId(Integer coloresId) {

@@ -1,7 +1,11 @@
 package com.nekospace.nekospace.model.venta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nekospace.nekospace.model.ProductosVenta;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,8 +42,7 @@ public class Venta {
     @JoinColumn(name = "metodoEnvio_id", nullable = false)
     private MetodoEnvio metodoEnvio;
 
-    @OneToMany
-    @JoinColumn(name = "ProductosVenta_id", nullable = false)
-    private ProductosVenta productosVenta;
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductosVenta> productosVenta = new ArrayList<>();
 
 }

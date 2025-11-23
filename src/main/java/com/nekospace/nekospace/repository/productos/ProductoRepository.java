@@ -9,31 +9,27 @@ import com.nekospace.nekospace.model.productos.Producto;
 
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
-    List<Producto> findByProductoId(Integer id);
-
-    @Query("""
+        @Query("""
             SELECT p FROM Producto p
             JOIN p.marca e
             JOIN p.origen o
-            WHERE e.nombre = :nombreMarca
+            WHERE e.nombreMarca = :nombreMarca
             """)
-
         List<Producto> findByMarcaNombre(String nombreMarca);
 
-    @Query("""
-            SELECT p FROM producto p
+        @Query("""
+            SELECT p FROM Producto p
             JOIN p.categoria c
             JOIN p.franquicia f
-            WHERE f.nombre = : nombreFranquicia
+            WHERE f.nombreFranquicia = :nombreFranquicia
             """)
-
-    List<Producto> findByFranquiciaNombre(String nombreFranquicia);
+        List<Producto> findByFranquiciaNombre(String nombreFranquicia);
 
     List<Producto> findByColoresId(Integer coloresId);
 
     List<Producto> findByMaterialId(Integer materialId);
 
-    List<Producto> findByImagenId(Integer imagenId);
+    List<Producto> findByImagenesId(Integer imagenId);
 
     List<Producto> findByMarcaId(Integer marcaId);
 
@@ -43,7 +39,5 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     List<Producto> findByFranquiciaId(Integer franquiciaId);
 
-    public Object findBydId(Integer id);
-
-    List<Producto> findByUsuarioId(Integer usuarioId);
+    List<Producto> findByUsuariosId(Integer usuarioId);
 }

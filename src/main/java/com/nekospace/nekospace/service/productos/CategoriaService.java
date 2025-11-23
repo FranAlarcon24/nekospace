@@ -58,15 +58,14 @@ public class CategoriaService {
         productoService.deleteByCategoriaId(id);
         categoriaRepository.deleteById(id);
     }
-
-    public void deleteBySubCategoriaId(Integer subCategoriaId) {
-        List<Categoria> categorias = categoriaRepository.findAll();
-        for (Categoria categoria : categorias) {
-            if (categoria.getSubCategoria() != null && categoria.getSubCategoria().getId().equals(subCategoriaId)) {
-                categoriaRepository.deleteById(categoria.getId());
-            }
-        }
+public void deleteBySubCategoriaId(Integer subCategoriaId) {
+    List<Categoria> categorias = categoriaRepository.findBySubCategoriaId(subCategoriaId);
+    for (Categoria categoria : categorias) {
+        // eliminar productos que pertenezcan a esta categoria antes de borrar la categoria
+        productoService.deleteByCategoriaId(categoria.getId());
+        categoriaRepository.deleteById(categoria.getId());
     }
+}
 
     public List <Categoria> findBySubCategoriaId(Integer subCategoriaId) {
         return categoriaRepository.findBySubCategoriaId(subCategoriaId);

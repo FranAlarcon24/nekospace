@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nekospace.nekospace.model.usuario.Usuario;
 import com.nekospace.nekospace.repository.usuario.UsuarioRepository;
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -21,8 +22,7 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private CarritoService carritoService;
+
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
@@ -35,14 +35,14 @@ public class UsuarioService {
 
     public Usuario login(Usuario usuario){
         Usuario foundUsuario = usuarioRepository.findByCorreo(usuario.getCorreo());
-        if(foundUsuario != null && passwordEncoder.matches(usuario.getContrasena(), foundUsuario.getContrasena())){
+        if(foundUsuario != null && passwordEncoder.matches(usuario.getPassword(), foundUsuario.getPassword())){
             return foundUsuario;
         }
         return null;
     }
 
     public Usuario save(Usuario usuario) {
-        String passwordHasheada = passwordEncoder.encode(usuario.getContrasena());
+        String passwordHasheada = passwordEncoder.encode(usuario.getPassword());
         usuario.setContrasena(passwordHasheada);
         return usuarioRepository.save(usuario);
     }
@@ -75,10 +75,10 @@ public class UsuarioService {
     }
 
     public void deleteById(Integer id) {
-        List<Usuario> usuarios = usuarioService.findAll();
+        List<Usuario> usuarios = usuarioRepository.findAll();
         for (Usuario usuario : usuarios) {
-            if (usuario.getUsuario() != null && usuario.getUsuario().getId().equals(id)) {
-                usuarioService.deleteById(usuario.getId());
+            if (usuario.getId() != null && usuario.getId().equals(id)) {
+                usuarioRepository.deleteById(usuario.getId());
             }
         }
         usuarioRepository.deleteById(id);

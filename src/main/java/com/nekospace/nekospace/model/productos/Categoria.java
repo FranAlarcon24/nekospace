@@ -1,11 +1,14 @@
 package com.nekospace.nekospace.model.productos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +29,7 @@ public class Categoria {
     @Column(name = "descripcionCategoria",nullable = false, length = 300)
     private String descripcionCategoria;
 
-    @OneToMany
-    @JoinColumn(name = "codigo_subCategoria", nullable = false)
-    private SubCategoria subCategoria;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SubCategoria> subCategoria = new ArrayList<>();
 
 }

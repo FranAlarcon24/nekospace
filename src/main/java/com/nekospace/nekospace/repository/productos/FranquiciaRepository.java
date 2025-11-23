@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.nekospace.nekospace.model.productos.Franquicia;
 
 public interface FranquiciaRepository extends JpaRepository<Franquicia, Integer> {
-    List<Franquicia> findByNombre(String nombre);
+    List<Franquicia> findByNombreFranquicia(String nombreFranquicia);
 
     @Override
     public void deleteById(Integer id);
