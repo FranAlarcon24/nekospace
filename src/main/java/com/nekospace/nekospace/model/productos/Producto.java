@@ -59,4 +59,14 @@ public class Producto {
     @JoinColumn(name = "franquicia_id", nullable = false)
     private Franquicia franquicia;
 
+    @ManyToMany
+    @JoinTable(name = "producto_color",
+        joinColumns = @JoinColumn(name = "producto_id"),
+        inverseJoinColumns = @JoinColumn(name = "color_id"))
+    private List<Color> colores = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "producto_id")
+    private List<Imagen> imagenes = new ArrayList<>();
+
 }
