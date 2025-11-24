@@ -69,4 +69,11 @@ public class Producto {
     @JoinColumn(name = "producto_id")
     private List<Imagen> imagenes = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "producto_id")
+    private List<ProductosVenta> productosVenta = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    private List<Usuario> usuarios = new ArrayList<>();
 }
