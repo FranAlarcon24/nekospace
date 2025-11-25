@@ -3,9 +3,6 @@ package com.nekospace.nekospace.model.productos;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nekospace.nekospace.model.ProductosVenta;
-import com.nekospace.nekospace.model.usuario.Usuario;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -69,11 +66,5 @@ public class Producto {
     @JoinColumn(name = "producto_id")
     private List<Imagen> imagenes = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "producto_id")
-    private List<ProductosVenta> productosVenta = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private List<Usuario> usuarios = new ArrayList<>();
+    // productosVenta and usuarios associations removed from this entity
 }
