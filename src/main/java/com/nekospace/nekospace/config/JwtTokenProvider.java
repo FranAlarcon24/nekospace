@@ -36,6 +36,7 @@ public class JwtTokenProvider {
         } catch (Exception e) {
             return null;
     }
+    }
 
     public String getrolFromToken(String token) {
         try {
@@ -47,6 +48,7 @@ public class JwtTokenProvider {
                    .get(rol);
         } catch (Exception e) {
             return null;
+    }
     }
     
     public boolean validateToken(String token) {
