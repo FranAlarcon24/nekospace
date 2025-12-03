@@ -13,8 +13,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebConfig {
     
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public WebConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -33,11 +36,13 @@ public class WebConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http){
     http
         .csrf(csrf -> csrf.disable())
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .SessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**", "/swagger-ui.html").permitAll()
+            .requestMatchers("/api/auth/**", "/swagger-ui.html", "/doc/swagger-ui.html").permitAll()
             .anyRequest().authenticated()
-        );
+        )
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     return http.build();
 }
 }
