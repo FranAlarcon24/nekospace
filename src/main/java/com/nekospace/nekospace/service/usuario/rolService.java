@@ -15,24 +15,24 @@ import jakarta.transaction.Transactional;
 public class rolService {
 
     @Autowired
-    private rolRepository rolRepository;
+    private rolRepository rolaRepository;
 
     public List<rol> findAll() {
-        return rolRepository.findAll();
+        return rolaRepository.findAll();
     }
 
     @SuppressWarnings("null")
     public rol findById(Integer id) {
-        return rolRepository.findById(id).orElse(null);
+        return rolaRepository.findById(id).orElse(null);
     }
 
     @SuppressWarnings("null")
     public rol save(rol rol) {
-        return rolRepository.save(rol);
+        return rolaRepository.save(rol);
     }
 
     public rol partialUpdate(rol rol) {
-        rol existingRol = rolRepository.findById(rol.getId()).orElse(null);
+        rol existingRol = rolaRepository.findById(rol.getId()).orElse(null);
         if (existingRol != null) {
             if (rol.getNombreRol() != null) {
                 existingRol.setNombreRol(rol.getNombreRol());
@@ -40,12 +40,12 @@ public class rolService {
             if(rol.getDescripcionRol() != null) {
                 existingRol.setDescripcionRol(rol.getDescripcionRol());
             }
-            return rolRepository.save(existingRol);
+            return rolaRepository.save(existingRol);
         }
         return null;
     }
 
     public void deleteById(Integer id) {
-        rolRepository.deleteById(id);
+        rolaRepository.deleteById(id);
     }
 }
