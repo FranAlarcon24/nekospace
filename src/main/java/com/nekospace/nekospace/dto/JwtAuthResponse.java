@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 public class JwtAuthResponse {
     private String accessToken;
     private String tokenType = "Bearer";
-    private String rol;
+    private String Rol;
 
     public JwtAuthResponse(String accessToken) {
         this.accessToken = accessToken;
     }
 
-    public JwtAuthResponse(String accessToken, String rol) {
+    public JwtAuthResponse(String accessToken, String Rol) {
         this.accessToken = accessToken;
-        this.rol = rol;
+        this.Rol = Rol;
     }
 }

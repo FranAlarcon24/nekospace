@@ -31,7 +31,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "rol_id", nullable = false)
-    private rol rol;
+    private Rol rol;
 
     @ManyToOne
     @JoinColumn(name = "Direccion_id", nullable = false)

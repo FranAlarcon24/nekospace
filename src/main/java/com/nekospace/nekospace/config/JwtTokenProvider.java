@@ -25,10 +25,10 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
     
-    public String generateToken(String username, String rol) {
+    public String generateToken(String username, String ) {
         return Jwts.builder()
                 .setSubject(username)
-                .claim("rol", rol)
+                .claim("Rol", Rol)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSigningKey())
@@ -55,7 +55,7 @@ public class JwtTokenProvider {
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
-            return claims.get("rol", String.class);
+            return claims.get("Rol", String.class);
         } catch (Exception e) {
             return null;
         }

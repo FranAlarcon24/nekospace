@@ -5,33 +5,33 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nekospace.nekospace.model.usuario.rol;
-import com.nekospace.nekospace.repository.usuario.rolRepository;
+import com.nekospace.nekospace.model.usuario.Rol;
+import com.nekospace.nekospace.repository.usuario.RolRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class rolService {
+public class RolService {
 
     @Autowired
-    private rolRepository rolaRepository;
+    private RolRepository RolaRepository;
 
-    public List<rol> findAll() {
-        return rolaRepository.findAll();
+    public List<Rol> findAll() {
+        return RolaRepository.findAll();
     }
 
     @SuppressWarnings("null")
-    public rol findById(Integer id) {
-        return rolaRepository.findById(id).orElse(null);
+    public Rol findById(Integer id) {
+        return RolaRepository.findById(id).orElse(null);
     }
 
     @SuppressWarnings("null")
-    public rol save(rol rol) {
-        return rolaRepository.save(rol);
+    public Rol save(Rol rol) {
+        return RolaRepository.save(rol);
     }
 
-    public rol partialUpdate(rol rol) {
+    public Rol partialUpdate(Rol rol) {
         rol existingRol = rolaRepository.findById(rol.getId()).orElse(null);
         if (existingRol != null) {
             if (rol.getNombreRol() != null) {
@@ -40,12 +40,12 @@ public class rolService {
             if(rol.getDescripcionRol() != null) {
                 existingRol.setDescripcionRol(rol.getDescripcionRol());
             }
-            return rolaRepository.save(existingRol);
+            return RolaRepository.save(existingRol);
         }
         return null;
     }
 
     public void deleteById(Integer id) {
-        rolaRepository.deleteById(id);
+        RolaRepository.deleteById(id);
     }
 }

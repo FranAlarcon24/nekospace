@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nekospace.nekospace.model.usuario.rol;
-import com.nekospace.nekospace.service.usuario.rolService;
+import com.nekospace.nekospace.model.usuario.Rol;
+import com.nekospace.nekospace.service.usuario.RolService;
 
 @RestController
 @RequestMapping("/api/roles")
-public class rolController {
+public class RolController {
 
     @Autowired
-    private rolService rolService;
+    private RolService RolService;
 
     @GetMapping
-    public ResponseEntity<List<rol>> getAllRoles() {
-        List<rol> roles = rolService.findAll();
+    public ResponseEntity<List<Rol>> getAllRoles() {
+        List<Rol> roles = rolService.findAll();
         if (roles.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -34,24 +34,24 @@ public class rolController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<rol> getRolById(@PathVariable Integer id) {
-        rol rol = rolService.findById(id);
+    public ResponseEntity<Rol> getRolById(@PathVariable Integer id) {
+        Rol rol = RolService.findById(id);
         if (rol == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(rol);
+        return ResponseEntity.ok(Rol);
     }
 
     @PostMapping
-    public ResponseEntity<rol> createRol(@RequestBody rol rol) {
-        rol createdRol = rolService.save(rol);
+    public ResponseEntity<Rol> createRol(@RequestBody Rol rol) {
+        Rol createdRol = RolService.save(rol);
         return ResponseEntity.status(201).body(createdRol);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<rol> updateRol(@PathVariable Integer id, @RequestBody rol rol) {
-        rol.setId(id);
-        rol updatedRol = rolService.save(rol);
+    public ResponseEntity<Rol> updateRol(@PathVariable Integer id, @RequestBody Rol rol) {
+        Rol.setId(id);
+        Rol updatedRol = RolService.save(Rol);
         if (updatedRol == null) {
             return ResponseEntity.notFound().build();
         }
@@ -59,9 +59,9 @@ public class rolController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<rol> updatePartialRol(@PathVariable Integer id, @RequestBody rol rol) {
-        rol.setId(id);
-        rol updatedRol = rolService.partialUpdate(rol);
+    public ResponseEntity<Rol> updatePartialRol(@PathVariable Integer id, @RequestBody Rol rol) {
+        Rol.setId(id);
+        Rol updatedRol = RolService.partialUpdate(Rol);
         if (updatedRol == null) {
             return ResponseEntity.notFound().build();
         }
@@ -70,7 +70,7 @@ public class rolController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRol(@PathVariable Integer id) {
-        rolService.deleteById(id);
+        RolService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

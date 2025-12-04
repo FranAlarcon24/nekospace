@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.nekospace.nekospace.model.usuario.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    @Query(value = "SELECT * FROM usuario WHERE rol_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM usuario WHERE Rol_id = ?1", nativeQuery = true)
     List<Usuario> findByRolId(Integer rolId);
 
     Usuario findByCorreo(String correo);
