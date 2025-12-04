@@ -42,13 +42,14 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody LoginRequest login) {
         Usuario newUser = new Usuario();
-        newUser.setNombre(login.getNombre());
+        newUser.setNombreUsuario(login.getNombre());
         newUser.setCorreo(login.getCorreo());
         newUser.setPassword(login.getPassword());
 
         if (login.getRol() != null) {
             newUser.setRol(login.getRol());
-        }
+        }}
+
 
         Usuario savedUser = usuarioService.save(newUser);
         if (savedUser == null) {
