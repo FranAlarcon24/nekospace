@@ -22,10 +22,10 @@ public class JwtTokenProvider {
     private long jwtExpiration;
     
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes("UTF_8"));
     }
     
-    public String generateToken(String username, String ) {
+    public String generateToken(String username, String Rol) {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("Rol", Rol)
