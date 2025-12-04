@@ -45,7 +45,7 @@ public class AuthController {
         newUser.setCorreo(login.getCorreo());
         newUser.setPassword(login.getPassword());
 
-        Usuario savedUser = usuarioService.register(newUser);
+        Usuario savedUser = usuarioService.save(newUser);
         if (savedUser == null) {
             return ResponseEntity.status(400).body("Error al registrar el usuario");
         }
