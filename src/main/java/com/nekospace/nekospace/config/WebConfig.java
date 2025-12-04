@@ -30,12 +30,6 @@ public class WebConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
                         .allowCredentials(true);
             }
-
-            @Override
-            public void addResourceHandlers(addResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/images/**")
-                        .addResourceLocations("file:uploads/");
-            }
         };
     }
 
