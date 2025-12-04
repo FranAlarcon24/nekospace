@@ -38,4 +38,17 @@ public class AuthController {
         String token = tokenProvider.generateToken(user.getCorreo(), rol);
         return ResponseEntity.ok(new JwtAuthResponse(token, rol));
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody LoginRequest login) {
+        Usuario newUser = new Usuario();
+        newUser.setCorreo(login.getCorreo());
+        newUser.setPassword(login.getPassword());
+
+        Usuario savedUser = usuarioService.register(newUser);
+        if (savedUser == null) {
+            return ResponseEntity.status(400).body("Error al registrar el usuario");
+        }
+        return ResponseEntity.ok(savedUser);
+    }
 }
