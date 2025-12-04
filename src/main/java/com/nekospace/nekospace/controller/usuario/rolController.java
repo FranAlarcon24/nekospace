@@ -73,4 +73,6 @@ public class RolController {
         RolService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    //es para que me funcione hacer el commit
 }
