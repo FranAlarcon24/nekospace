@@ -15,8 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
-public abstract class Usuario {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -41,17 +40,4 @@ public abstract class Usuario {
     @ManyToOne
     @JoinColumn(name = "comuna_id")
     private Comuna comuna;
-
-    public Object getDireccion() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setDireccion(Object direccion) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setContrasena(String passwordHasheada) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }
