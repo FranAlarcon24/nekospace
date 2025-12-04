@@ -41,6 +41,19 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody LoginRequest login) {
+
+        if (login.getNombre() == null || login.getNombre().trim().isEmpty()) {
+            return ResponseEntity.status(400).body("El nombre de usuario es obligatorio");
+        }
+
+        if (login.getCorreo() == null || login.getCorreo().trim().isEmpty()) {
+            return ResponseEntity.status(400).body("El correo es obligatorio");
+        }
+
+        if (login.getPassword() == null || login.getPassword().trim().isEmpty()) {
+            return ResponseEntity.status(400).body("La contraseña es obligatoria");
+        }
+
         Usuario newUser = new Usuario();
         newUser.setNombreUsuario(login.getNombre());
         newUser.setCorreo(login.getCorreo());
@@ -48,7 +61,11 @@ public class AuthController {
 
         if (login.getRol() != null) {
             newUser.setRol(login.getRol());
-        }}
+        }else {
+            rol defaultRol = new Rol();
+            defaultRol.setIdRol(3);
+            newUser.setRol(defaultRol);
+        }
 
 
         Usuario savedUser = usuarioService.save(newUser);
