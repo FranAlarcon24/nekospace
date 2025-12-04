@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.nekospace.nekospace.security.jwt.JwtAuthenticationFilter;
 
 
+
 @Configuration
 @EnableWebSecurity
 public class WebConfig {
@@ -27,6 +28,7 @@ public class WebConfig {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:5173/")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
+                        .allowCredentials(true);
             }
         };
     }
