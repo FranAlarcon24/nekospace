@@ -32,7 +32,7 @@ public class RolService {
     }
 
     public Rol partialUpdate(Rol rol) {
-        rol existingRol = rolaRepository.findById(rol.getId()).orElse(null);
+        Rol existingRol = RolaRepository.findById(rol.getId()).orElse(null);
         if (existingRol != null) {
             if (rol.getNombreRol() != null) {
                 existingRol.setNombreRol(rol.getNombreRol());
