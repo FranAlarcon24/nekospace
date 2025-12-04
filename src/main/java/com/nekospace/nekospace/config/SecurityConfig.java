@@ -42,7 +42,6 @@ public class SecurityConfig {
                 "/doc/**",
                 "/api/**"
             ))
-            .cors(Customizer.withDefaults())
             .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();
