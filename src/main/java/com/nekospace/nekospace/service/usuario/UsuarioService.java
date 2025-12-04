@@ -43,7 +43,7 @@ public class UsuarioService {
 
     public Usuario save(Usuario usuario) {
         String passwordHasheada = passwordEncoder.encode(usuario.getPassword());
-        usuario.setContrasena(passwordHasheada);
+        usuario.setPassword(passwordHasheada);
         return usuarioRepository.save(usuario);
     }
 
