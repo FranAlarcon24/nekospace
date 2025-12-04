@@ -1,4 +1,6 @@
 package com.nekospace.nekospace.controller.usuario;
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class AuthController {
     private UsuarioService usuarioService;
     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws UnsupportedEncodingException {
         // Crear usuario temporal para realizar el login
         Usuario tempUser = new Usuario();
         tempUser.setCorreo(loginRequest.getCorreo());
