@@ -34,6 +34,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws UnsupportedEncodingException {
         // Crear usuario temporal para realizar el login
         Usuario tempUser = new Usuario();
+        tempUser.setNombreUsuario(loginRequest.getNombre());
         tempUser.setCorreo(loginRequest.getCorreo());
         tempUser.setPassword(loginRequest.getPassword());
         
