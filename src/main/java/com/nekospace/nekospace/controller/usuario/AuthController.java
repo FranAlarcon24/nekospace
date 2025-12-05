@@ -88,10 +88,15 @@ public class AuthController {
         newUser.setRol(rolToAssign);
 
 
-        Usuario savedUser = usuarioService.save(newUser);
-        if (savedUser == null) {
-            return ResponseEntity.status(400).body("Error al registrar el usuario");
+        try {
+            Usuario savedUser = usuarioService.save(newUser);
+            if (savedUser == null) {
+                return ResponseEntity.status(400).body("Error al registrar el usuario");
+            }
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            // Devolver el mensaje de la excepción para depuración del 500
+            return ResponseEntity.status(500).body("Error interno al registrar: " + e.getMessage());
         }
-        return ResponseEntity.ok(savedUser);
     }
 }
