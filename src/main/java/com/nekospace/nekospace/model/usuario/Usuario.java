@@ -23,7 +23,7 @@ public class Usuario {
     @Column(name = "nombreUsuario",nullable = false, length = 100)
     private String nombreUsuario;
 
-    @Column(name = "password",nullable = false,unique = true, length = 150)
+    @Column(name = "password",nullable = false, length = 150)
     private String password;
 
     @Column(name = "correo", nullable = false, unique = true, length = 150)
@@ -34,10 +34,10 @@ public class Usuario {
     private Rol rol;
 
     @ManyToOne
-    @JoinColumn(name = "Direccion_id", nullable = false)
+    @JoinColumn(name = "Direccion_id", nullable = true)
     private Direccion direccion;
     
     @ManyToOne
-    @JoinColumn(name = "comuna_id")
+    @JoinColumn(name = "comuna_id", nullable = true)
     private Comuna comuna;
 }
