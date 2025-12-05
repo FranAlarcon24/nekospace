@@ -13,6 +13,7 @@ import com.nekospace.nekospace.dto.JwtAuthResponse;
 import com.nekospace.nekospace.dto.LoginRequest;
 import com.nekospace.nekospace.model.usuario.Rol;
 import com.nekospace.nekospace.model.usuario.Usuario;
+import com.nekospace.nekospace.repository.usuario.RolRepository;
 import com.nekospace.nekospace.service.usuario.UsuarioService;
 
 
@@ -25,6 +26,9 @@ public class AuthController {
     
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private RolRepository rolRepository;
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws UnsupportedEncodingException {
@@ -63,13 +67,25 @@ public class AuthController {
         newUser.setCorreo(login.getCorreo());
         newUser.setPassword(login.getPassword());
 
-        if (login.getRol() != null) {
-            newUser.setRol(login.getRol());
-        }else {
-            Rol defaultRol = new Rol();
-            defaultRol.setId(3);
-            newUser.setRol(defaultRol);
+        // Verificar correo duplicado
+        if (usuarioService.findByCorreo(login.getCorreo()) != null) {
+            return ResponseEntity.status(400).body("El correo ya está registrado");
         }
+
+        // Asignar rol gestionado desde la base de datos
+        Rol rolToAssign = null;
+        if (login.getRol() != null && login.getRol().getId() != null) {
+            rolToAssign = rolRepository.findById(login.getRol().getId()).orElse(null);
+            if (rolToAssign == null) {
+                return ResponseEntity.status(400).body("Rol no encontrado");
+            }
+        } else {
+            rolToAssign = rolRepository.findById(3).orElse(null);
+            if (rolToAssign == null) {
+                return ResponseEntity.status(400).body("Rol por defecto no configurado en la base de datos");
+            }
+        }
+        newUser.setRol(rolToAssign);
 
 
         Usuario savedUser = usuarioService.save(newUser);

@@ -47,6 +47,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public Usuario findByCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
+    }
+
     public Usuario update(Usuario usuario) {
         return save(usuario);
     }
