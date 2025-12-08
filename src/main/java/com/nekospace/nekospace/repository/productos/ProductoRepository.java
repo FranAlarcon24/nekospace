@@ -29,7 +29,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     List<Producto> findByMaterialId(Integer materialId);
 
-    List<Producto> findByImagenesId(Integer imagenId);
+    List<Producto> findByImagen_Id(Integer imagenId);
 
     List<Producto> findByMarcaId(Integer marcaId);
 

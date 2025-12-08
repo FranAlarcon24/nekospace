@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +25,6 @@ public class Imagen {
     @Column(name = "url",nullable = false, length = 500)
     private String url;
 
-    @OneToOne
-    @JoinColumn(name = "producto_id")
+    @OneToOne(mappedBy = "imagen")
     private Producto producto;
 }

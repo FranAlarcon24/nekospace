@@ -9,11 +9,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -56,15 +56,17 @@ public class Producto {
     @JoinColumn(name = "franquicia_id", nullable = false)
     private Franquicia franquicia;
 
+      
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
+
     @ManyToMany
     @JoinTable(name = "producto_color",
         joinColumns = @JoinColumn(name = "producto_id"),
         inverseJoinColumns = @JoinColumn(name = "color_id"))
     private List<Color> colores = new ArrayList<>();
 
-    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "imagen_id")
-    private Imagen imagen;
 
     
 }

@@ -113,10 +113,8 @@ public class ProductoService {
     public void deleteByImagenId(Integer imagenId) {
         List<Producto> productos = productoRepository.findAll();
         for (Producto producto : productos) {
-            for (Imagen imagen : producto.getImagenes()) {
-                if (imagen.getId().equals(imagenId)) {
-                    productoRepository.deleteById(producto.getId());
-                }
+            if (producto.getImagen() != null && producto.getImagen().getId().equals(imagenId)) {
+                productoRepository.deleteById(producto.getId());
             }
         }
     }
@@ -152,7 +150,7 @@ public class ProductoService {
     }
 
     public List<Producto> findByImagenId(Integer imagenId) {
-        return productoRepository.findByImagenesId(imagenId);
+        return productoRepository.findByImagen_Id(imagenId);
     }
 
     public List<Producto> findByColoresId(Integer coloresId) {
