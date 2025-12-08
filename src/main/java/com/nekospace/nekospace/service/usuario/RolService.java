@@ -17,6 +17,9 @@ public class RolService {
     @Autowired
     private RolRepository RolaRepository;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     public List<Rol> findAll() {
         return RolaRepository.findAll();
     }
@@ -46,6 +49,8 @@ public class RolService {
     }
 
     public void deleteById(Integer id) {
+        // eliminar usuarios asociados al rol antes de borrar el rol
+        usuarioService.deleteByRolId(id);
         RolaRepository.deleteById(id);
     }
 }

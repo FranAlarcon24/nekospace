@@ -1,12 +1,14 @@
 package com.nekospace.nekospace.service.usuario;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.transaction.Transactional;
 
 import com.nekospace.nekospace.model.usuario.Comuna;
 import com.nekospace.nekospace.repository.usuario.ComunaRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -15,6 +17,12 @@ public class ComunaService {
 
     @Autowired
     private ComunaRepository comunaRepository;
+
+    @Autowired
+    private DireccionService direccionService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     public List<Comuna> findAll() {
         return comunaRepository.findAll();
@@ -45,6 +53,18 @@ public class ComunaService {
     }
 
     public void deleteById(Integer id) {
+        // eliminar direcciones asociadas y limpiar referencias en usuarios
+        direccionService.deleteByComunaId(id);
+        usuarioService.clearComunaById(id);
         comunaRepository.deleteById(id);
+    }
+
+    public void deleteByRegionId(Integer regionId) {
+        List<Comuna> comunas = comunaRepository.findByRegionId(regionId);
+        for (Comuna comuna : comunas) {
+            direccionService.deleteByComunaId(comuna.getId());
+            usuarioService.clearComunaById(comuna.getId());
+            comunaRepository.deleteById(comuna.getId());
+        }
     }
 }

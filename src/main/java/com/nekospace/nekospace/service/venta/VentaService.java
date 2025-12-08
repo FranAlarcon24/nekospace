@@ -60,4 +60,31 @@ public class VentaService {
         ventaRepository.deleteById(id);
     }
 
+    public void deleteByMetodoPagoId(Integer metodoPagoId) {
+        List<Venta> ventas = ventaRepository.findAll();
+        for (Venta venta : ventas) {
+            if (venta.getMetodoPago() != null && venta.getMetodoPago().getId().equals(metodoPagoId)) {
+                ventaRepository.deleteById(venta.getId());
+            }
+        }
+    }
+
+    public void deleteByMetodoEnvioId(Integer metodoEnvioId) {
+        List<Venta> ventas = ventaRepository.findAll();
+        for (Venta venta : ventas) {
+            if (venta.getMetodoEnvio() != null && venta.getMetodoEnvio().getId().equals(metodoEnvioId)) {
+                ventaRepository.deleteById(venta.getId());
+            }
+        }
+    }
+
+    public void deleteByEstadoId(Integer estadoId) {
+        List<Venta> ventas = ventaRepository.findAll();
+        for (Venta venta : ventas) {
+            if (venta.getEstadoVenta() != null && venta.getEstadoVenta().getId().equals(estadoId)) {
+                ventaRepository.deleteById(venta.getId());
+            }
+        }
+    }
+
 }

@@ -18,6 +18,9 @@ public class RegionService {
     @Autowired
     private RegionRepository regionRepository;
 
+    @Autowired
+    private ComunaService comunaService;
+
 
     public List<Region> findAll() {
         return regionRepository.findAll();
@@ -44,6 +47,8 @@ public class RegionService {
     }
 
     public void deleteById(Integer id) {
+        // eliminar comunas y sus dependencias antes de borrar la region
+        comunaService.deleteByRegionId(id);
         regionRepository.deleteById(id);
     }
 }

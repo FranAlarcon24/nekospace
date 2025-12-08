@@ -17,6 +17,8 @@ public class MetodoPagoService {
 
     @Autowired
     private MetodoPagoRepository metodoPagoRepository;
+    @Autowired
+    private VentaService ventaService;
 
     public List<MetodoPago> findAll() {
         return metodoPagoRepository.findAll();
@@ -43,6 +45,7 @@ public class MetodoPagoService {
     }
 
     public void deleteById(Integer id) {
+        ventaService.deleteByMetodoPagoId(id);
         metodoPagoRepository.deleteById(id);
     }
 }

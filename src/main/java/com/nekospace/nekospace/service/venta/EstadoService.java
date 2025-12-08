@@ -17,6 +17,8 @@ public class EstadoService {
 
     @Autowired
     private EstadoRepository estadoRepository;
+    @Autowired
+    private VentaService ventaService;
 
     public List<Estado> findAll() {
         return estadoRepository.findAll();
@@ -47,6 +49,7 @@ public class EstadoService {
     }
 
     public void deleteById(Integer id) {
+        ventaService.deleteByEstadoId(id);
         estadoRepository.deleteById(id);
     }
 }

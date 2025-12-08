@@ -17,6 +17,8 @@ public class MetodoEnvioService {
 
     @Autowired
     private MetodoEnvioRepository metodoEnvioRepository;
+    @Autowired
+    private VentaService ventaService;
 
     public List<MetodoEnvio> findAll() {
         return metodoEnvioRepository.findAll();
@@ -47,6 +49,7 @@ public class MetodoEnvioService {
     }
 
     public void deleteById(Integer id) {
+        ventaService.deleteByMetodoEnvioId(id);
         metodoEnvioRepository.deleteById(id);
     }
 }

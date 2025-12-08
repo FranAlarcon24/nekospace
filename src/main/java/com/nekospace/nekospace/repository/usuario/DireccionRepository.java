@@ -8,4 +8,6 @@ import com.nekospace.nekospace.model.usuario.Direccion;
 @Repository
 public interface DireccionRepository extends JpaRepository<Direccion, Integer> {
 
+	java.util.List<Direccion> findByComunaId(Integer comunaId);
+
 }

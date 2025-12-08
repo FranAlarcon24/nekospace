@@ -17,6 +17,8 @@ public class DireccionService {
 
     @Autowired
     private DireccionRepository direccionRepository;
+    @Autowired
+    private UsuarioService usuarioService;
 
     public List<Direccion> findAll() {
         return direccionRepository.findAll();
@@ -53,6 +55,17 @@ public class DireccionService {
     }
 
     public void deleteById(Integer id) {
+        // clear referencias en usuarios antes de eliminar la direccion
+        usuarioService.clearDireccionById(id);
         direccionRepository.deleteById(id);
+    }
+
+    public void deleteByComunaId(Integer comunaId) {
+        java.util.List<Direccion> direcciones = direccionRepository.findByComunaId(comunaId);
+        for (Direccion direccion : direcciones) {
+            // limpiar referencias en usuarios
+            usuarioService.clearDireccionById(direccion.getId());
+            direccionRepository.deleteById(direccion.getId());
+        }
     }
 }

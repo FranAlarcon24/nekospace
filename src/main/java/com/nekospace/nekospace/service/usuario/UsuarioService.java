@@ -87,4 +87,31 @@ public class UsuarioService {
         }
         usuarioRepository.deleteById(id);
     }
+
+    public void clearDireccionById(Integer direccionId) {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getDireccion() != null && usuario.getDireccion().getId().equals(direccionId)) {
+                usuario.setDireccion(null);
+                usuarioRepository.save(usuario);
+            }
+        }
+    }
+
+    public void clearComunaById(Integer comunaId) {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getComuna() != null && usuario.getComuna().getId().equals(comunaId)) {
+                usuario.setComuna(null);
+                usuarioRepository.save(usuario);
+            }
+        }
+    }
+
+    public void deleteByRolId(Integer rolId) {
+        List<Usuario> usuarios = usuarioRepository.findByRolId(rolId);
+        for (Usuario usuario : usuarios) {
+            usuarioRepository.deleteById(usuario.getId());
+        }
+    }
 }
