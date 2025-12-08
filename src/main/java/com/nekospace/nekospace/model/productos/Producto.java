@@ -9,11 +9,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -62,9 +62,9 @@ public class Producto {
         inverseJoinColumns = @JoinColumn(name = "color_id"))
     private List<Color> colores = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "producto_id")
-    private List<Imagen> imagenes = new ArrayList<>();
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
 
-    // productosVenta and usuarios associations removed from this entity
+    
 }
