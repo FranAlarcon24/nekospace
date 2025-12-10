@@ -3,13 +3,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
-
+import io.jsonwebtoken.io.Decoders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+
 
 
 @Component
@@ -22,7 +23,7 @@ public class JwtTokenProvider {
     private long jwtExpiration;
     
     private SecretKey getSigningKey() throws UnsupportedEncodingException {
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes("UTF_8"));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
     
     public String generateToken(String username, String Rol) throws UnsupportedEncodingException {
