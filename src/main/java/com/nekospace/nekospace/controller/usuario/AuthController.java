@@ -32,7 +32,7 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws UnsupportedEncodingException {
-        // Crear usuario temporal para realizar el login
+        
         Usuario tempUser = new Usuario();
         tempUser.setNombreUsuario(loginRequest.getNombre());
         tempUser.setCorreo(loginRequest.getCorreo());
@@ -68,12 +68,11 @@ public class AuthController {
         newUser.setCorreo(login.getCorreo());
         newUser.setPassword(login.getPassword());
 
-        // Verificar correo duplicado
+        
         if (usuarioService.findByCorreo(login.getCorreo()) != null) {
             return ResponseEntity.status(400).body("El correo ya está registrado");
         }
 
-        // Asignar rol gestionado desde la base de datos
         Rol rolToAssign = null;
         if (login.getRol() != null && login.getRol().getId() != null) {
             rolToAssign = rolRepository.findById(login.getRol().getId()).orElse(null);
@@ -96,7 +95,6 @@ public class AuthController {
             }
             return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
-            // Devolver el mensaje de la excepción para depuración del 500
             return ResponseEntity.status(500).body("Error interno al registrar: " + e.getMessage());
         }
     }
