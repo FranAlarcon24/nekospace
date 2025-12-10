@@ -1,5 +1,4 @@
 package com.nekospace.nekospace.controller.usuario;
-import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,21 +30,33 @@ public class AuthController {
     private RolRepository rolRepository;
     
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws UnsupportedEncodingException {
-        
-        Usuario tempUser = new Usuario();
-        tempUser.setNombreUsuario(loginRequest.getNombre());
-        tempUser.setCorreo(loginRequest.getCorreo());
-        tempUser.setPassword(loginRequest.getPassword());
-        
-        Usuario user = usuarioService.login(tempUser);
-        if (user == null) {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
-        }
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            // Validar que correo y password no sean nulos
+            if (loginRequest.getCorreo() == null || loginRequest.getCorreo().trim().isEmpty()) {
+                return ResponseEntity.status(400).body("El correo es obligatorio");
+            }
+            if (loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
+                return ResponseEntity.status(400).body("La contraseña es obligatoria");
+            }
 
-        String rolNombre = user.getRol() != null ? user.getRol().getNombreRol() : "USER";
-        String token = tokenProvider.generateToken(user.getCorreo(), rolNombre);
-        return ResponseEntity.ok(new JwtAuthResponse(token, rolNombre));
+            Usuario tempUser = new Usuario();
+            tempUser.setNombreUsuario(loginRequest.getNombre());
+            tempUser.setCorreo(loginRequest.getCorreo());
+            tempUser.setPassword(loginRequest.getPassword());
+            
+            Usuario user = usuarioService.login(tempUser);
+            if (user == null) {
+                return ResponseEntity.status(401).body("Credenciales inválidas");
+            }
+
+            String rolNombre = user.getRol() != null ? user.getRol().getNombreRol() : "USER";
+            String token = tokenProvider.generateToken(user.getCorreo(), rolNombre);
+            return ResponseEntity.ok(new JwtAuthResponse(token, rolNombre));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error en login: " + e.getMessage());
+        }
     }
 
     @PostMapping("/register")

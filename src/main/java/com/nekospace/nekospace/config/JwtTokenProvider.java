@@ -1,16 +1,15 @@
 package com.nekospace.nekospace.config;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
-import io.jsonwebtoken.io.Decoders;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-
 
 
 @Component
@@ -22,11 +21,11 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
     
-    private SecretKey getSigningKey() throws UnsupportedEncodingException {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
     
-    public String generateToken(String username, String Rol) throws UnsupportedEncodingException {
+    public String generateToken(String username, String Rol) {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("Rol", Rol)
