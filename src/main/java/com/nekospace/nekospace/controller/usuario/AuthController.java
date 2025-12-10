@@ -43,9 +43,9 @@ public class AuthController {
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }
 
-        String Rol = user.getRol() != null ? user.getRol().getNombreRol() : "USER";
-        String token = tokenProvider.generateToken(user.getCorreo(), Rol);
-        return ResponseEntity.ok(new JwtAuthResponse(token, Rol));
+        String rolNombre = user.getRol() != null ? user.getRol().getNombreRol() : "USER";
+        String token = tokenProvider.generateToken(user.getCorreo(), rolNombre);
+        return ResponseEntity.ok(new JwtAuthResponse(token, rolNombre));
     }
 
     @PostMapping("/register")
