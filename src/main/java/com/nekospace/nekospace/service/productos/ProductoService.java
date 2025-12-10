@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nekospace.nekospace.model.productos.Imagen;
+
 import com.nekospace.nekospace.model.productos.Producto;
 import com.nekospace.nekospace.repository.productos.ProductoRepository;
 

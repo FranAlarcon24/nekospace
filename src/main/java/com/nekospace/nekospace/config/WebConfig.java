@@ -24,9 +24,13 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173,http://nekospace-frontend.vercel.app/,*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
-                        ;
+                        .allowedOrigins(
+                            "http://localhost:5173",
+                            "https://nekospace-frontend.vercel.app"
+                        )
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                        .allowedHeaders("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With")
+                        .allowCredentials(true);
             }
         };
     }
